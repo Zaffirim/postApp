@@ -1,13 +1,76 @@
-<div class="container text-center">
-    <h1>Lista post jsonPlaceHolder style</h1>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-6 text-center">
-                <a [routerLink]="['/activePosts']" class="btn btn-primary">Vai ai post attivi</a>
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="p-4 mb-4 bg-body-secondary rounded-3">
+            <div
+                class="container-fluid py-5"
+                *ngFor="let post of posts; let i = index"
+            >
+                <h1 class="display-5 fw-bold">In evidenza: {{ post.title }}</h1>
+                <a [routerLink]="['/pagina', post.id]">Leggi di più</a>
             </div>
-            <div class="col-6 text-center">
-                <a [routerLink]="['/inactivePosts']" class="btn btn-primary">Vai ai post non attivi</a>
+        </div>
+        <section class="row mb-5">
+            <div
+                class="col-12 col-sm-6 p-4 d-flex flex-column"
+                *ngFor="let post of posts; let i = index"
+            >
+                <strong
+                    class="d-inline-block mb-2 text-primary-emphasis text-uppercase"
+                    >{{ post.body }}</strong
+                >
+                <h3 class="mb-0">{{ post.title }}</h3>
+                <div class="mb-1 text-body-secondary">
+                    Reactions: {{ post.active }}
+                </div>
+                <p class="card-text mb-auto">
+                    {{ post.body.slice(0, 150) }}...
+                </p>
+                <a routerLink="/post/{{ post.id }}"> Continue reading </a>
             </div>
+            <div
+                class="col-12 col-sm-6 p-4 d-flex flex-column"
+                *ngFor="let post of posts"
+            >
+                <strong
+                    class="d-inline-block mb-2 text-primary-emphasis text-uppercase"
+                    >{{ post.body }}</strong
+                >
+                <h3 class="mb-0">{{ post.title }}</h3>
+                <div class="mb-1 text-body-secondary">
+                    Reactions: {{ post.active }}
+                </div>
+                <p class="card-text mb-auto">
+                    {{ post.body.slice(0, 150) }}...
+                </p>
+                <a routerLink="/post/{{ post.id }}"> Continue reading </a>
+            </div>
+        </section>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="px-5 py-4 bg-body-secondary rounded-3">
+            <h5>Potrebbero piacerti:</h5>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let post of posts">
+                    <a routerLink="/post/{{ post.id }}">🔗 {{ post.title }}</a>
+                    <br />
+                    <span
+                        class="badge bg-primary me-1 text-uppercase"
+                        *ngFor="let post of posts"
+                        >{{ post }}</span
+                    >
+                    <br />
+                    {{ post.title }} 👍
+                </li>
+            </ul>
+            <h5>Vedi anche:</h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a routerLink="/activePosts">Post attivi</a>
+                </li>
+                <li class="list-group-item">
+                    <a routerLink="/inactivePosts">Post inattivi</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
